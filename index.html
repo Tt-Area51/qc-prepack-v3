@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QC/Pre-Pack/เคลม</title>
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Tt-Area51/leave-zeta-2025/main/favicon.ico?v2">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --background: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --card-background: #ffffff;
+            --sidebar-width: 280px;
+            --sidebar-collapsed: 60px;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --background: #0f172a;
+            --text-color: #e2e8f0;
+            --border-color: #1e293b;
+            --card-background: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text-color);
+            line-height: 1.5;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--card-background);
+            border-right: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-title a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .sidebar-title a:hover {
+            color: var(--primary-color);
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background-color: var(--background);
+        }
+
+        .nav-item.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-item.active:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .nav-icon {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Theme Toggle in Sidebar */
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--border-color);
+            transition: 0.3s;
+            border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            transition: all 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .content-header {
+            padding: 2rem 2rem 1rem;
+            background: var(--card-background);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .iframe-container {
+            padding: 2rem;
+        }
+
+        .iframe-wrapper {
+            background: var(--card-background);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .iframe-wrapper iframe {
+            border: none;
+            width: 100%;
+            height: 800px;
+            background: transparent;
+            display: none;
+        }
+
+        #qcFrame { display: block; }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .content-header {
+                padding: 4rem 1rem 1rem;
+            }
+
+            .iframe-container {
+                padding: 1rem;
+            }
+
+            .iframe-wrapper iframe {
+                height: 600px;
+            }
+
+            /* Sidebar Backdrop */
+            .sidebar-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .sidebar-backdrop.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- Sidebar Backdrop for Mobile -->
+    <div class="sidebar-backdrop" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-title">
+                <a href="https://www.google.com">QC System</a>
+            </h2>
+            <p style="font-size: 0.875rem; color: var(--text-color); opacity: 0.7;">เลือกเมนูที่ต้องการใช้งาน</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <button class="nav-item active" onclick="switchView('form', this, 'QC Form')">
+                <span class="nav-icon">📋</span>
+                <span>บันทึกรายการ QC</span>
+            </button>
+            <button class="nav-item" onclick="switchView('ffm', this, 'QC Fulfillment Form')">
+                <span class="nav-icon">🛒</span>
+                <span>บันทึกรายการ QC FFM</span>
+            </button>
+            <button class="nav-item" onclick="switchView('claim', this, 'Claim Form')">
+                <span class="nav-icon">🔧</span>
+                <span>บันทึกรายการเคลม</span>
+            </button>
+            <div style="height: 1.5rem;"></div>
+            <button class="nav-item" onclick="switchView('void_test', this, 'สินค้าที่ต้องติดวอยด์และเทสสินค้า')">
+                <span class="nav-icon">📝</span>
+                <span>ติดวอยด์+เทสสินค้า</span>
+            </button>
+            <button class="nav-item" onclick="switchView('testonly', this, 'สินค้าที่ต้องเทสอย่างเดียว')">
+                <span class="nav-icon">📝</span>
+                <span>เทสอย่างเดียว</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="theme-switch-wrapper">
+                <span class="theme-icon">☀️</span>
+                <label class="theme-switch" for="theme-toggle">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="theme-icon">🌙</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="content-header">
+            <h1 class="content-title" id="content-title">QC Form</h1>
+        </div>
+        
+        <div class="iframe-container">
+            <div class="iframe-wrapper">
+                <iframe id="qcFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagh09ZVcMDFQUtrz/form"></iframe>
+                <iframe id="ffmFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagdH7UXnNODlmF5K/form"></iframe>
+                <iframe id="claimFrame" class="airtable-embed" src="https://airtable.com/embed/appCPjQyw4Tr3alrS/pagyQbwwcQGbXOBNw/form"></iframe>
+                <iframe id="void_testFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shre20090Pza4Mx2e"></iframe>
+                <iframe id="testonlyFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shrmHiNkaIDrRYTcz"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // View switching function
+        function switchView(view, element, title) {
+            // Hide all iframes
+            document.getElementById('qcFrame').style.display = 'none';
+            document.getElementById('ffmFrame').style.display = 'none';
+            document.getElementById('claimFrame').style.display = 'none';
+            document.getElementById('void_testFrame').style.display = 'none';
+            document.getElementById('testonlyFrame').style.display = 'none';
+
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to clicked item
+            element.classList.add('active');
+
+            // Update title
+            document.getElementById('content-title').textContent = title;
+
+            // Show appropriate iframe with animation
+            let targetFrame;
+            if (view === 'ffm') {
+                targetFrame = document.getElementById('ffmFrame');
+            } else if (view === 'claim') {
+                targetFrame = document.getElementById('claimFrame');
+            } else if (view === 'void_test') {
+                targetFrame = document.getElementById('void_testFrame');
+            } else if (view === 'testonly') {
+                targetFrame = document.getElementById('testonlyFrame');
+            } else {
+                targetFrame = document.getElementById('qcFrame');
+            }
+            
+            targetFrame.style.display = 'block';
+            targetFrame.parentElement.classList.add('fade-in');
+            
+            // Close sidebar on mobile after selection
+            if (window.innerWidth <= 768) {
+                closeSidebar();
+            }
+        }
+
+        // Sidebar toggle functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.querySelector('.sidebar-backdrop');
+            
+            sidebar.classList.toggle('open');
+            backdrop.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.querySelector('.sidebar-backdrop');
+            
+            sidebar.classList.remove('open');
+            backdrop.classList.remove('active');
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        // Initialize theme from localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            themeToggle.checked = savedTheme === 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        } else {
+            // Default to light theme
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+        
+        themeToggle.addEventListener('change', () => {
+            const theme = themeToggle.checked ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                const sidebar = document.getElementById('sidebar');
+                const mobileToggle = document.querySelector('.mobile-menu-toggle');
+                
+                if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    closeSidebar();
+                }
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeSidebar();
+            }
+        });
+    </script>
+</body>
+</html>
