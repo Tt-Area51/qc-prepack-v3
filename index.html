@@ -98,6 +98,16 @@
             padding: 1rem 0;
         }
 
+        .sidebar-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .sidebar-nav a:hover {
+            color: var(--primary-color);
+        }
+        
         .nav-item {
             display: flex;
             align-items: center;
@@ -304,33 +314,38 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2 class="sidebar-title">
-                <a href="https://airtable.com/appgEuVEfgUW5Lz4E/shrN1ReyHcG5SQnDq" target="_blank" rel="noopener noreferrer">QC System</a>
+                <a href="https://airtable.com/appgEuVEfgUW5Lz4E/shrN1ReyHcG5SQnDq" target="_blank" rel="noopener noreferrer" >QC System</a>
             </h2>
             <p style="font-size: 0.875rem; color: var(--text-color); opacity: 0.7;">เลือกเมนูที่ต้องการใช้งาน</p>
         </div>
         
         <nav class="sidebar-nav">
-            <button class="nav-item active" onclick="switchView('form', this, 'QC Form')">
-                <span class="nav-icon">📋</span>
-                <span>บันทึกรายการ QC</span>
-            </button>
-            <button class="nav-item" onclick="switchView('ffm', this, 'QC Fulfillment Form')">
-                <span class="nav-icon">🛒</span>
-                <span>บันทึกรายการ QC FFM</span>
-            </button>
-            <button class="nav-item" onclick="switchView('claim', this, 'Claim Form')">
-                <span class="nav-icon">🔧</span>
-                <span>บันทึกรายการเคลม</span>
-            </button>
-            <div style="height: 1.5rem;"></div>
             <button class="nav-item" onclick="switchView('void_test', this, 'สินค้าที่ต้องติดวอยด์ (ทั้งเทสและไม่เทสสินค้า)')">
                 <span class="nav-icon">📝</span>
                 <span>ติดวอยด์ (เทส+ไม่เทส)</span>
             </button>
-            <button class="nav-item" onclick="switchView('testonly', this, 'สินค้าที่ต้องเทสอย่างเดียว')">
+            <button class="nav-item" onclick="switchView('testonly', this, 'สินค้าที่ต้องเทสอย่างเดียว ไม่ต้องติดวอยด์')">
                 <span class="nav-icon">📝</span>
                 <span>เทสอย่างเดียว</span>
             </button>
+            <button class="nav-item" onclick="switchView('novoid_notest', this, 'สินค้าที่ไม่ต้องติดวอยด์และไม่ต้องเทส')">
+                <span class="nav-icon">📝</span>
+                <span>ไม่ติดวอยด์ ไม่เทสสินค้า</span>
+            </button>
+            <div style="height: 2rem;"></div>
+            <button class="nav-item" onclick="switchView('form', this, 'QC Form')">
+                <span class="nav-icon">📋</span>
+                <a href="https://airtable.com/appgEuVEfgUW5Lz4E/pagh09ZVcMDFQUtrz/form" target="_blank" rel="noopener noreferrer" >บันทึกรายการ QC ↗️</a>
+            </button>
+            <button class="nav-item" onclick="switchView('ffm', this, 'QC Fulfillment Form')">
+                <span class="nav-icon">🛒</span>
+                <a href="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagdH7UXnNODlmF5K/form" target="_blank" rel="noopener noreferrer" >บันทึกรายการ QC FFM ↗️</a>
+            </button>
+            <button class="nav-item" onclick="switchView('claim', this, 'Claim Form')">
+                <span class="nav-icon">🔧</span>
+                <a href="https://airtable.com/embed/appCPjQyw4Tr3alrS/pagyQbwwcQGbXOBNw/form" target="_blank" rel="noopener noreferrer" >บันทึกรายการเคลม ↗️</a>
+            </button>
+            <div style="height: 1.5rem;"></div>
         </nav>
 
         <div class="sidebar-footer">
@@ -348,16 +363,14 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="content-header">
-            <h1 class="content-title" id="content-title">QC Form</h1>
+            <h1 class="content-title" id="content-title">QC</h1>
         </div>
         
         <div class="iframe-container">
             <div class="iframe-wrapper">
-                <iframe id="qcFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagh09ZVcMDFQUtrz/form"></iframe>
-                <iframe id="ffmFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagdH7UXnNODlmF5K/form"></iframe>
-                <iframe id="claimFrame" class="airtable-embed" src="https://airtable.com/embed/appCPjQyw4Tr3alrS/pagyQbwwcQGbXOBNw/form"></iframe>
                 <iframe id="void_testFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shre20090Pza4Mx2e"></iframe>
                 <iframe id="testonlyFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shrmHiNkaIDrRYTcz"></iframe>
+                <iframe id="novoidnotestFrame" class="airtable-embed" src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shrxnDTInHCDek2Ln"></iframe>
             </div>
         </div>
     </div>
@@ -366,11 +379,10 @@
         // View switching function
         function switchView(view, element, title) {
             // Hide all iframes
-            document.getElementById('qcFrame').style.display = 'none';
-            document.getElementById('ffmFrame').style.display = 'none';
-            document.getElementById('claimFrame').style.display = 'none';
             document.getElementById('void_testFrame').style.display = 'none';
             document.getElementById('testonlyFrame').style.display = 'none';
+            document.getElementById('novoidnotestFrame').style.display = 'none';
+
 
             // Remove active class from all nav items
             document.querySelectorAll('.nav-item').forEach(item => {
@@ -385,16 +397,12 @@
 
             // Show appropriate iframe with animation
             let targetFrame;
-            if (view === 'ffm') {
-                targetFrame = document.getElementById('ffmFrame');
-            } else if (view === 'claim') {
-                targetFrame = document.getElementById('claimFrame');
-            } else if (view === 'void_test') {
+            if (view === 'void_test') {
                 targetFrame = document.getElementById('void_testFrame');
             } else if (view === 'testonly') {
                 targetFrame = document.getElementById('testonlyFrame');
             } else {
-                targetFrame = document.getElementById('qcFrame');
+                targetFrame = document.getElementById('novoidnotestFrame');
             }
             
             targetFrame.style.display = 'block';
