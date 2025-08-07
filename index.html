@@ -5,26 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QC/Pre-Pack/เคลม</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Tt-Area51/leave-zeta-2025/main/favicon.ico?v2">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --primary-hover: #1d4ed8;
-            --background: #f8fafc;
-            --text-color: #1e293b;
-            --border-color: #e2e8f0;
-            --card-background: #ffffff;
+            --primary: #0066ff;
+            --primary-hover: #0052cc;
+            --primary-light: #e6f2ff;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafbfc;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border: #e5e7eb;
+            --border-light: #f3f4f6;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
             --sidebar-width: 280px;
-            --sidebar-collapsed: 60px;
         }
 
         [data-theme="dark"] {
-            --primary-color: #3b82f6;
+            --primary: #3b82f6;
             --primary-hover: #2563eb;
-            --background: #0f172a;
-            --text-color: #e2e8f0;
-            --border-color: #1e293b;
-            --card-background: #1e293b;
+            --primary-light: #1e3a8a;
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --border: #374151;
+            --border-light: #2d3748;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
         }
 
         * {
@@ -34,29 +50,38 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--background);
-            color: var(--text-color);
-            line-height: 1.5;
-            transition: all 0.3s ease;
-            overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Mobile Menu Toggle */
         .mobile-menu-toggle {
             display: none;
             position: fixed;
-            top: 1rem;
-            left: 0.8rem;
+            top: 20px;
+            left: 20px;
             z-index: 1001;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 0.5rem;
-            padding: 0.75rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px;
             cursor: pointer;
-            font-size: 1.25rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            font-size: 18px;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(20px);
+            transition: all 0.2s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: var(--bg-secondary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
         }
 
         /* Sidebar */
@@ -66,170 +91,225 @@
             top: 0;
             width: var(--sidebar-width);
             height: 100vh;
-            background: var(--card-background);
-            border-right: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
             overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 2px;
         }
 
         .sidebar-header {
-            padding: 2rem 1.5rem 1rem;
-            border-bottom: 1px solid var(--border-color);
+            padding: 32px 24px 24px;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .sidebar-title {
-            font-size: 1.25rem;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+            margin-bottom: 4px;
         }
         
         .sidebar-title a {
-            color: var(--text-color);
+            color: var(--text-primary);
             text-decoration: none;
             transition: color 0.2s ease;
         }
         
         .sidebar-title a:hover {
-            color: var(--primary-color);
+            color: var(--primary);
+        }
+
+        .sidebar-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 400;
         }
 
         .sidebar-nav {
-            padding: 1rem 0;
+            padding: 16px 0 100px;
         }
 
-        .sidebar-nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.2s ease;
+        .nav-section {
+            margin-bottom: 32px;
         }
-        
-        .sidebar-nav a:hover {
-            color: var(--primary-color);
+
+        .nav-section-title {
+            padding: 0 24px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
         }
-        
+
         .nav-item {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1.5rem;
-            color: var(--text-color);
+            padding: 12px 24px;
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             cursor: pointer;
             border: none;
             background: none;
             width: 100%;
             text-align: left;
-            font-size: 0.95rem;
+            font-size: 14px;
             font-weight: 500;
+            position: relative;
+            margin: 2px 8px;
+            border-radius: var(--radius-sm);
         }
 
         .nav-item:hover {
-            background-color: var(--background);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
 
         .nav-item.active {
-            background-color: var(--primary-color);
-            color: white;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
         }
 
-        .nav-item.active:hover {
-            background-color: var(--primary-hover);
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .nav-item a {
+            color: inherit;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            width: 100%;
         }
 
         .nav-icon {
-            margin-right: 0.75rem;
-            font-size: 1.1rem;
+            margin-right: 12px;
+            font-size: 16px;
             width: 20px;
             text-align: center;
+            opacity: 0.8;
         }
 
-        /* Theme Toggle in Sidebar */
+        /* Theme Toggle */
         .sidebar-footer {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
-            right: 0;
-            padding: 1.5rem;
-            border-top: 1px solid var(--border-color);
+            width: var(--sidebar-width);
+            padding: 24px;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border);
         }
 
-        .theme-switch-wrapper {
+        .theme-toggle-wrapper {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
         }
 
-        .theme-switch {
+        .theme-toggle {
             position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 20px;
-        }
-
-        .theme-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
+            width: 44px;
+            height: 24px;
+            background: var(--border);
+            border-radius: 12px;
             cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: var(--border-color);
-            transition: 0.3s;
-            border-radius: 20px;
+            transition: all 0.2s ease;
         }
 
-        .slider:before {
+        .theme-toggle.active {
+            background: var(--primary);
+        }
+
+        .theme-toggle-slider {
             position: absolute;
-            content: "";
-            height: 14px;
-            width: 14px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.3s;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
             border-radius: 50%;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
         }
 
-        input:checked + .slider {
-            background-color: var(--primary-color);
-        }
-
-        input:checked + .slider:before {
+        .theme-toggle.active .theme-toggle-slider {
             transform: translateX(20px);
+        }
+
+        .theme-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
         }
 
         /* Main Content */
         .main-content {
             margin-left: var(--sidebar-width);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 100vh;
         }
 
         .content-header {
-            padding: 2rem 2rem 1rem;
-            background: var(--card-background);
-            border-bottom: 1px solid var(--border-color);
+            padding: 32px 40px;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            backdrop-filter: blur(20px);
         }
 
         .content-title {
-            font-size: 1.5rem;
+            font-size: 28px;
             font-weight: 600;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
         }
 
         .iframe-container {
-            padding: 2rem;
+            padding: 32px 40px;
         }
 
         .iframe-wrapper {
-            background: var(--card-background);
-            border-radius: 0.75rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+        }
+
+        .iframe-wrapper:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
         }
 
         .iframe-wrapper iframe {
@@ -240,7 +320,7 @@
             display: none;
         }
 
-        #qcFrame { display: block; }
+        #void_testFrame { display: block; }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
@@ -254,6 +334,7 @@
 
             .sidebar.open {
                 transform: translateX(0);
+                box-shadow: var(--shadow-lg);
             }
 
             .main-content {
@@ -261,29 +342,37 @@
             }
 
             .content-header {
-                padding: 4rem 1rem 1rem;
+                padding: 80px 24px 32px;
+            }
+
+            .content-title {
+                font-size: 24px;
             }
 
             .iframe-container {
-                padding: 1rem;
+                padding: 24px;
             }
 
             .iframe-wrapper iframe {
-                height: 600px;
+                height: 700px;
             }
 
-            /* Sidebar Backdrop */
+            .sidebar-footer {
+                width: 100%;
+            }
+
             .sidebar-backdrop {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.4);
                 z-index: 999;
                 opacity: 0;
                 visibility: hidden;
                 transition: all 0.3s ease;
+                backdrop-filter: blur(4px);
             }
 
             .sidebar-backdrop.active {
@@ -294,18 +383,53 @@
 
         /* Animations */
         .fade-in {
-            animation: fadeIn 0.3s ease-in;
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(16px) scale(0.98);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Loading state */
+        .iframe-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: loading 1.5s infinite;
+            z-index: 1;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Smooth transitions for theme changes */
+        * {
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
     </style>
 </head>
 <body>
     <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
 
     <!-- Sidebar Backdrop for Mobile -->
     <div class="sidebar-backdrop" onclick="closeSidebar()"></div>
@@ -314,48 +438,52 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2 class="sidebar-title">
-                <a href="https://airtable.com/appgEuVEfgUW5Lz4E/shrN1ReyHcG5SQnDq" target="_blank" rel="noopener noreferrer" >QC System v3.1</a>
+                <a href="https://airtable.com/appgEuVEfgUW5Lz4E/shrN1ReyHcG5SQnDq" target="_blank" rel="noopener noreferrer">QC System</a>
             </h2>
-            <p style="font-size: 0.875rem; color: var(--text-color); opacity: 0.7;">เลือกเมนูที่ต้องการใช้งาน</p>
+            <p class="sidebar-subtitle">Version 3.1</p>
         </div>
         
         <nav class="sidebar-nav">
-            <button class="nav-item" onclick="switchView('void_test', this, 'สินค้าที่ต้องติดวอยด์ (ทั้งเทสและไม่เทสสินค้า)')">
-                <span class="nav-icon">📝</span>
-                <span>ติดวอยด์ (เทส+ไม่เทส)</span>
-            </button>
-            <button class="nav-item" onclick="switchView('testonly', this, 'สินค้าที่ต้องเทสอย่างเดียว ไม่ต้องติดวอยด์')">
-                <span class="nav-icon">📝</span>
-                <span>เทสอย่างเดียว</span>
-            </button>
-            <button class="nav-item" onclick="switchView('novoid_notest', this, 'สินค้าที่ไม่ต้องติดวอยด์และไม่ต้องเทส')">
-                <span class="nav-icon">📝</span>
-                <span>ไม่ติดวอยด์ ไม่เทสสินค้า</span>
-            </button>
-            <div style="height: 2rem;"></div>
-            <button class="nav-item" onclick="switchView('form', this, 'QC Form')">
-                <span class="nav-icon">📋</span>
-                <a href="https://airtable.com/appgEuVEfgUW5Lz4E/pagh09ZVcMDFQUtrz/form" target="_blank" rel="noopener noreferrer" >บันทึกรายการ QC ↗️</a>
-            </button>
-            <button class="nav-item" onclick="switchView('ffm', this, 'QC Fulfillment Form')">
-                <span class="nav-icon">🛒</span>
-                <a href="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagdH7UXnNODlmF5K/form" target="_blank" rel="noopener noreferrer" >บันทึกรายการ QC FFM ↗️</a>
-            </button>
-            <button class="nav-item" onclick="switchView('claim', this, 'Claim Form')">
-                <span class="nav-icon">🔧</span>
-                <a href="https://airtable.com/embed/appCPjQyw4Tr3alrS/pagyQbwwcQGbXOBNw/form" target="_blank" rel="noopener noreferrer" >บันทึกรายการเคลม ↗️</a>
-            </button>
-            <div style="height: 1.5rem;"></div>
+            <div class="nav-section">
+                <div class="nav-section-title">Quality Control</div>
+                <button class="nav-item active" onclick="switchView('void_test', this, 'สินค้าที่ต้องติดวอยด์ (ทั้งเทสและไม่เทสสินค้า)')">
+                    <span class="nav-icon">🏷️</span>
+                    <span>ติดวอยด์ (เทส+ไม่เทส)</span>
+                </button>
+                <button class="nav-item" onclick="switchView('testonly', this, 'สินค้าที่ต้องเทสอย่างเดียว ไม่ต้องติดวอยด์')">
+                    <span class="nav-icon">🔬</span>
+                    <span>เทสอย่างเดียว</span>
+                </button>
+                <button class="nav-item" onclick="switchView('novoid_notest', this, 'สินค้าที่ไม่ต้องติดวอยด์และไม่ต้องเทส')">
+                    <span class="nav-icon">✅</span>
+                    <span>ไม่ติดวอยด์ ไม่เทสสินค้า</span>
+                </button>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Forms & Claims</div>
+                <div class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    <a href="https://airtable.com/appgEuVEfgUW5Lz4E/pagh09ZVcMDFQUtrz/form" target="_blank" rel="noopener noreferrer">บันทึกรายการ QC</a>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🛒</span>
+                    <a href="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagdH7UXnNODlmF5K/form" target="_blank" rel="noopener noreferrer">บันทึกรายการ QC FFM</a>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🔧</span>
+                    <a href="https://airtable.com/embed/appCPjQyw4Tr3alrS/pagyQbwwcQGbXOBNw/form" target="_blank" rel="noopener noreferrer">บันทึกรายการเคลม</a>
+                </div>
+            </div>
         </nav>
 
         <div class="sidebar-footer">
-            <div class="theme-switch-wrapper">
-                <span class="theme-icon">☀️</span>
-                <label class="theme-switch" for="theme-toggle">
-                    <input type="checkbox" id="theme-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="theme-icon">🌙</span>
+            <div class="theme-toggle-wrapper">
+                <span class="theme-label">☀️ Light</span>
+                <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider"></div>
+                </div>
+                <span class="theme-label">🌙 Dark</span>
             </div>
         </div>
     </div>
@@ -363,7 +491,7 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="content-header">
-            <h1 class="content-title" id="content-title">QC</h1>
+            <h1 class="content-title" id="content-title">สินค้าที่ต้องติดวอยด์ (ทั้งเทสและไม่เทสสินค้า)</h1>
         </div>
         
         <div class="iframe-container">
@@ -376,13 +504,35 @@
     </div>
 
     <script>
+        // Theme management
+        let isDarkTheme = false;
+
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            isDarkTheme = savedTheme === 'dark';
+            updateThemeDisplay();
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            const theme = isDarkTheme ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateThemeDisplay();
+        }
+
+        function updateThemeDisplay() {
+            const toggle = document.getElementById('theme-toggle');
+            toggle.classList.toggle('active', isDarkTheme);
+        }
+
         // View switching function
         function switchView(view, element, title) {
             // Hide all iframes
             document.getElementById('void_testFrame').style.display = 'none';
             document.getElementById('testonlyFrame').style.display = 'none';
             document.getElementById('novoidnotestFrame').style.display = 'none';
-
 
             // Remove active class from all nav items
             document.querySelectorAll('.nav-item').forEach(item => {
@@ -408,6 +558,11 @@
             targetFrame.style.display = 'block';
             targetFrame.parentElement.classList.add('fade-in');
             
+            // Remove animation class after animation completes
+            setTimeout(() => {
+                targetFrame.parentElement.classList.remove('fade-in');
+            }, 400);
+            
             // Close sidebar on mobile after selection
             if (window.innerWidth <= 768) {
                 closeSidebar();
@@ -431,25 +586,6 @@
             backdrop.classList.remove('active');
         }
 
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        // Initialize theme from localStorage
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            themeToggle.checked = savedTheme === 'dark';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        } else {
-            // Default to light theme
-            document.documentElement.setAttribute('data-theme', 'light');
-        }
-        
-        themeToggle.addEventListener('change', () => {
-            const theme = themeToggle.checked ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-        });
-
         // Close sidebar when clicking outside on mobile
         document.addEventListener('click', (e) => {
             if (window.innerWidth <= 768) {
@@ -468,6 +604,9 @@
                 closeSidebar();
             }
         });
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', initializeTheme);
     </script>
 </body>
 </html>
