@@ -84,6 +84,19 @@
             box-shadow: var(--shadow-lg);
         }
 
+        /* Transparent state when sidebar is open */
+        .mobile-menu-toggle.transparent {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(2px);
+        }
+
+        [data-theme="dark"] .mobile-menu-toggle.transparent {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         /* Sidebar */
         .sidebar {
             position: fixed;
@@ -214,8 +227,14 @@
             width: 20px;
             text-align: center;
             opacity: 0.8;
-            animation: float 3s ease-in-out infinite;           /* ลอย 3 วินาที, ซ้ำไม่จำกัด */
-            animation-delay: calc(var(--i) * 0.2s);            /* แต่ละตัวหน่วง 0.2 วินาที */
+            animation: float 3s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.2s);
+        }
+
+        /* Floating icons animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
         /* Theme Toggle */ 
@@ -417,11 +436,6 @@
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }    /* เริ่มต้น + จบ = ตำแหน่งปกติ */
-            50% { transform: translateY(-5px); }        /* ตรงกลาง = ลอยขึ้น 5px */
-        }
         
         /* Smooth transitions for theme changes */
         * {
@@ -585,17 +599,27 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const backdrop = document.querySelector('.sidebar-backdrop');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
             
             sidebar.classList.toggle('open');
             backdrop.classList.toggle('active');
+            
+            // Add transparent class to mobile toggle when sidebar is open
+            if (sidebar.classList.contains('open')) {
+                mobileToggle.classList.add('transparent');
+            } else {
+                mobileToggle.classList.remove('transparent');
+            }
         }
 
         function closeSidebar() {
             const sidebar = document.getElementById('sidebar');
             const backdrop = document.querySelector('.sidebar-backdrop');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
             
             sidebar.classList.remove('open');
             backdrop.classList.remove('active');
+            mobileToggle.classList.remove('transparent');
         }
 
         // Close sidebar when clicking outside on mobile
