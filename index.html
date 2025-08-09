@@ -91,6 +91,7 @@
             top: 0;
             width: var(--sidebar-width);
             height: 100vh;
+            backdrop-filter: blur(20px);
             background: var(--bg-primary);
             border-right: 1px solid var(--border);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -213,9 +214,11 @@
             width: 20px;
             text-align: center;
             opacity: 0.8;
+            animation: float 3s ease-in-out infinite;           /* ลอย 3 วินาที, ซ้ำไม่จำกัด */
+            animation-delay: calc(var(--i) * 0.2s);            /* แต่ละตัวหน่วง 0.2 วินาที */
         }
 
-        /* Theme Toggle */
+        /* Theme Toggle */ 
         .sidebar-footer {
             position: fixed;
             bottom: 0;
@@ -405,7 +408,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #3b82f6 25%, #2563eb 50%, #1e3a8a 75%);
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
             animation: shimmer 1.5s infinite;
             z-index: 1;
         }
@@ -415,6 +418,11 @@
             100% { transform: translateX(100%); }
         }
 
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }    /* เริ่มต้น + จบ = ตำแหน่งปกติ */
+            50% { transform: translateY(-5px); }        /* ตรงกลาง = ลอยขึ้น 5px */
+        }
+        
         /* Smooth transitions for theme changes */
         * {
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
@@ -440,22 +448,22 @@
             <h2 class="sidebar-title">
                 <a href="https://airtable.com/appgEuVEfgUW5Lz4E/shrN1ReyHcG5SQnDq" target="_blank" rel="noopener noreferrer">QC System</a>
             </h2>
-            <p class="sidebar-subtitle">Version 3.4</p>
+            <p class="sidebar-subtitle">Version 3.5</p>
         </div>
         
         <nav class="sidebar-nav">
             <div class="nav-section">
                 <div class="nav-section-title">Quality Control</div>
                 <button class="nav-item active" onclick="switchView('void_test', this, 'สินค้าที่ต้องติดวอยด์ (ทั้งเทสและไม่เทสสินค้า)')">
-                    <span class="nav-icon">🏷️</span>
+                    <span class="nav-icon" style="--i: 1">🏷️</span>
                     <span>ติดวอยด์ (เทส+ไม่เทส)</span>
                 </button>
                 <button class="nav-item" onclick="switchView('testonly', this, 'สินค้าที่ต้องเทสอย่างเดียว ไม่ต้องติดวอยด์')">
-                    <span class="nav-icon">🔬</span>
+                    <span class="nav-icon" style="--i: 2">🔬</span>
                     <span>เทสอย่างเดียว</span>
                 </button>
                 <div class="nav-item">
-                    <span class="nav-icon">✅</span>
+                    <span class="nav-icon" style="--i: 3">✅</span>
                     <a href="https://airtable.com/appgEuVEfgUW5Lz4E/shrxnDTInHCDek2Ln" target="_blank" rel="noopener noreferrer">ไม่ติดวอยด์ ไม่เทสสินค้า</a>
                 </div>
             </div>
@@ -463,19 +471,19 @@
             <div class="nav-section">
                 <div class="nav-section-title">Forms QC/Pre-Pack & Claims</div>
                 <div class="nav-item">
-                    <span class="nav-icon">📝</span>
+                    <span class="nav-icon" style="--i: 4">📝</span>
                     <a href="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagh09ZVcMDFQUtrz/form" target="_blank" rel="noopener noreferrer">บันทึกรายการ QC</a>
                 </div>
                 <div class="nav-item">
-                    <span class="nav-icon">📦</span>
+                    <span class="nav-icon" style="--i: 5">📦</span>
                     <a href="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagWmNnM9ogyPgdof/form" target="_blank" rel="noopener noreferrer">บันทึกรายการ Pre-Pack</a>
                 </div>
                 <div class="nav-item">
-                    <span class="nav-icon">🛒</span>
+                    <span class="nav-icon" style="--i: 6">🛒</span>
                     <a href="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagdH7UXnNODlmF5K/form" target="_blank" rel="noopener noreferrer">บันทึกรายการ QC FFM</a>
                 </div>
                 <div class="nav-item">
-                    <span class="nav-icon">🔧</span>
+                    <span class="nav-icon" style="--i: 7">🔧</span>
                     <a href="https://airtable.com/embed/appCPjQyw4Tr3alrS/pagyQbwwcQGbXOBNw/form" target="_blank" rel="noopener noreferrer">บันทึกรายการเคลม</a>
                 </div>
             </div>
