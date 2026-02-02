@@ -160,9 +160,19 @@
         }
 
         .sidebar-subtitle {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 400;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 4px 10px;
+            border-radius: 99px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        [data-theme="dark"] .sidebar-subtitle {
+            background: rgba(37, 99, 235, 0.2);
+            color: #60a5fa;
         }
 
         .sidebar-nav {
@@ -381,7 +391,7 @@
             display: none;
         }
 
-        #void_testFrame {
+        #to_doFrame {
             display: block;
         }
 
@@ -520,35 +530,39 @@
                 <a href="https://airtable.com/appgEuVEfgUW5Lz4E/shrN1ReyHcG5SQnDq" target="_blank"
                     rel="noopener noreferrer">QC System</a>
             </h2>
-            <p class="sidebar-subtitle">Version 3.7</p>
+            <p class="sidebar-subtitle">v3.8</p>
         </div>
 
         <nav class="sidebar-nav">
             <div class="nav-section">
                 <div class="nav-section-title">Quality Control</div>
-                <button class="nav-item active" onclick="switchView('void_test', this, 'รายการสินค้าที่ต้องทำทั้งหมด')">
+                <button class="nav-item active" onclick="switchView('to_do', this, 'รายการสินค้าที่ต้องทำทั้งหมด')">
                     <span class="nav-icon" style="--i: 1">📋</span>
                     <span>ดูรายการที่ต้องทำ</span>
+                </button>
+                <button class="nav-item" onclick="switchView('stock_view', this, 'ดู Stock QC/Pre-Pack')">
+                    <span class="nav-icon" style="--i: 2">📦</span>
+                    <span>ดู Stock QC/Pre-Pack</span>
                 </button>
             </div>
 
             <div class="nav-section">
                 <div class="nav-section-title">Forms QC/Pre-Pack & Claims</div>
-                <button class="nav-item" onclick="switchView('qc_form', this, 'บันทึกรายการ QC/Pre-Pack')">
+                <button class="nav-item" onclick="switchView('qc_pre_pack_form', this, 'บันทึก QC/Pre-Pack')">
                     <span class="nav-icon" style="--i: 4">📝</span>
-                    <span>บันทึกรายการ QC/Pre-Pack</span>
+                    <span>บันทึก QC/Pre-Pack</span>
                 </button>
-                <!--<div class="nav-item">
-                    <span class="nav-icon" style="--i: 5">📦</span>
-                    <a href="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagWmNnM9ogyPgdof/form" target="_blank" rel="noopener noreferrer">❌ห้ามใช้-บันทึกรายการ Pre-Pack</a>
-                </div>-->
-                <button class="nav-item" onclick="switchView('qc_ffm', this, 'บันทึกรายการ QC FFM')">
+                <button class="nav-item" onclick="switchView('withdrawal_form', this, 'บันทึกเบิก QC / Pre-Pack')">
+                    <span class="nav-icon" style="--i: 5">🚚</span>
+                    <span>บันทึกเบิก QC / Pre-Pack</span>
+                </button>
+                <button class="nav-item" onclick="switchView('qc_ffm', this, 'บันทึก QC FFM')">
                     <span class="nav-icon" style="--i: 6">🛒</span>
-                    <span>บันทึกรายการ QC FFM</span>
+                    <span>บันทึก QC FFM</span>
                 </button>
-                <button class="nav-item" onclick="switchView('claim', this, 'บันทึกรายการเคลม')">
+                <button class="nav-item" onclick="switchView('claim', this, 'บันทึกเคลม')">
                     <span class="nav-icon" style="--i: 7">🔧</span>
-                    <span>บันทึกรายการเคลม</span>
+                    <span>บันทึกเคลม</span>
                 </button>
             </div>
         </nav>
@@ -572,18 +586,18 @@
 
         <div class="iframe-container">
             <div class="iframe-wrapper">
-                <iframe id="void_testFrame" class="airtable-embed"
-                    src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shre20090Pza4Mx2e"></iframe>
-                <iframe id="testonlyFrame" class="airtable-embed"
-                    src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shrmHiNkaIDrRYTcz"></iframe>
-                <iframe id="novoidnotestFrame" class="airtable-embed"
-                    src="https://airtable.com/appgEuVEfgUW5Lz4E/shrxnDTInHCDek2Ln"></iframe>
-                <iframe id="qcFormFrame" class="airtable-embed"
+                <iframe id="to_doFrame" class="airtable-embed"
+                    src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shre20090Pza4Mx2e?viewControls=on"></iframe>
+                <iframe id="qcPrePackFormFrame" class="airtable-embed"
                     src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagh09ZVcMDFQUtrz/form"></iframe>
                 <iframe id="qcFFMFrame" class="airtable-embed"
                     src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagdH7UXnNODlmF5K/form"></iframe>
                 <iframe id="claimFrame" class="airtable-embed"
                     src="https://airtable.com/embed/appCPjQyw4Tr3alrS/pagyQbwwcQGbXOBNw/form"></iframe>
+                <iframe id="stockViewFrame" class="airtable-embed"
+                    src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/shrq75JIwPV0O48lM?viewControls=on"></iframe>
+                <iframe id="withdrawalFrame" class="airtable-embed"
+                    src="https://airtable.com/embed/appgEuVEfgUW5Lz4E/pagUMsuRHYl177RIR/form"></iframe>
             </div>
         </div>
     </div>
@@ -615,12 +629,13 @@
         // View switching function
         function switchView(view, element, title) {
             // Hide all iframes
-            document.getElementById('void_testFrame').style.display = 'none';
-            document.getElementById('testonlyFrame').style.display = 'none';
-            document.getElementById('novoidnotestFrame').style.display = 'none';
-            document.getElementById('qcFormFrame').style.display = 'none';
+            document.getElementById('to_doFrame').style.display = 'none';
+
+            document.getElementById('qcPrePackFormFrame').style.display = 'none';
             document.getElementById('qcFFMFrame').style.display = 'none';
             document.getElementById('claimFrame').style.display = 'none';
+            document.getElementById('stockViewFrame').style.display = 'none';
+            document.getElementById('withdrawalFrame').style.display = 'none';
 
             // Remove active class from all nav items
             document.querySelectorAll('.nav-item').forEach(item => {
@@ -635,18 +650,18 @@
 
             // Show appropriate iframe with animation
             let targetFrame;
-            if (view === 'void_test') {
-                targetFrame = document.getElementById('void_testFrame');
-            } else if (view === 'testonly') {
-                targetFrame = document.getElementById('testonlyFrame');
-            } else if (view === 'qc_form') {
-                targetFrame = document.getElementById('qcFormFrame');
+            if (view === 'to_do') {
+                targetFrame = document.getElementById('to_doFrame');
+            } else if (view === 'qc_pre_pack_form') {
+                targetFrame = document.getElementById('qcPrePackFormFrame');
             } else if (view === 'qc_ffm') {
                 targetFrame = document.getElementById('qcFFMFrame');
             } else if (view === 'claim') {
                 targetFrame = document.getElementById('claimFrame');
-            } else {
-                targetFrame = document.getElementById('novoidnotestFrame');
+            } else if (view === 'stock_view') {
+                targetFrame = document.getElementById('stockViewFrame');
+            } else if (view === 'withdrawal_form') {
+                targetFrame = document.getElementById('withdrawalFrame');
             }
 
             targetFrame.style.display = 'block';
