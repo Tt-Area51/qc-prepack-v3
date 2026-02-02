@@ -607,7 +607,7 @@
         let isDarkTheme = false;
 
         function initializeTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedTheme = localStorage.getItem('qc_theme') || 'light';
             isDarkTheme = savedTheme === 'dark';
             updateThemeDisplay();
             document.documentElement.setAttribute('data-theme', savedTheme);
@@ -617,7 +617,7 @@
             isDarkTheme = !isDarkTheme;
             const theme = isDarkTheme ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
+            localStorage.setItem('qc_theme', theme);
             updateThemeDisplay();
         }
 
